@@ -23,6 +23,7 @@ if echo "$line" | awk '{print $2}' | grep -q "JOIN"; then
   if dig "$HOST" SOA | grep -q "afraid.org" && echo "$HOSTSTDOUT" | grep -q NXDOMAIN; then
     echo "MODE $CHAN +b :*!*@$HOST" | tee -a bot.log
     echo "KICK $CHAN $NICK :afraid.org temporarily banned, sorry" | tee -a bot.log
+    echo "/msg nickserv info $NICK" | tee -a log
     HITS=$((`grep $HOST bot.log -c`/2))
     (sleep "$((SLEEPFOR*HITS))"; echo "MODE $CHAN -b :*!*@$HOST" | tee -a bot.log) &
   fi
