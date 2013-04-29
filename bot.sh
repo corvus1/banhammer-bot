@@ -20,7 +20,8 @@ if echo "$line" | awk '{print $2}' | grep -q "JOIN"; then
   HOSTSTDOUT=$(host "$HOST." 2>&1 | tee -a bot.log)
   if dig "$HOST" SOA | grep -q "afraid.org" && echo "$HOSTSTDOUT" | grep -q NXDOMAIN; then
     echo "MODE $CHAN +b :*!*@$HOST" | tee -a bot.log
-    (sleep "$SLEEPFOR"; echo "MODE $CHAN -b :*!*@$HOST" | tee -a bot.log) &
+    HITS=$((`grep $HOST bot.log -c`/2))
+    (sleep "$((SLEEPFOR**HIST))"; echo "MODE $CHAN -b :*!*@$HOST" | tee -a bot.log) &
     echo "KICK $CHAN $NICK :afraid.org temporarily banned, sorry" | tee -a bot.log
   fi
 fi
