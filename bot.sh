@@ -1,16 +1,18 @@
-#!/bin/sh
- 
+#!/bin/bash
+
 CHAN="#gentoo-chat-ru"
 MYNICK="brave-org"
 SLEEPFOR=300
- 
+
 echo "NICK $MYNICK"
 echo "USER $MYNICK $MYNICK $MYNICK $MYNICK"
 sleep 3
 echo "NICKSERV IDENTIFY login password"
 sleep 10
 echo "JOIN :$CHAN"
- 
+
+echo $$ > bot.pid
+
 while read line; do
 echo "$line" >> bot.log
 echo "$line" | sed -ne 's/PING/PONG/p'
