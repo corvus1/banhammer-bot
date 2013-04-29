@@ -22,7 +22,7 @@ if echo "$line" | awk '{print $2}' | grep -q "JOIN"; then
     echo "MODE $CHAN +b :*!*@$HOST" | tee -a bot.log
     echo "KICK $CHAN $NICK :afraid.org temporarily banned, sorry" | tee -a bot.log
     HITS=$((`grep $HOST bot.log -c`/2))
-    (sleep "$((SLEEPFOR**HITS))"; echo "MODE $CHAN -b :*!*@$HOST" | tee -a bot.log) &
+    (sleep "$((SLEEPFOR*HITS))"; echo "MODE $CHAN -b :*!*@$HOST" | tee -a bot.log) &
   fi
 fi
 done
